@@ -1,0 +1,21 @@
+# Copy to config.yaml and fill API keys and preferences
+api:
+  alpha_vantage_key: "YOUR_ALPHA_VANTAGE_KEY"
+  finnhub_key: "YOUR_FINNHUB_KEY"
+
+storage:
+  data_dir: "./data"
+  parquet: true
+
+model:
+  device: "cpu"  # set to "cuda" only if you have GPU and want to use it for inference
+  hidden_size: 64
+  num_layers: 1
+  seq_len: 32
+  batch_size: 64
+  incremental_epochs: 2
+  full_train_epochs: 10
+
+training:
+  after_market_retrain_hour: 20  # 8pm local time for batch retrain
+  max_gpu_mem_mb: 2000  # soft target for GPU usage; code will avoid forcing GPU if low memory

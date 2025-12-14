@@ -1,0 +1,18 @@
+# Core dependencies (kept minimal)
+python>=3.9
+pandas
+numpy
+pyyaml
+requests
+pyarrow
+pytorch
+scikit-learn
+click
+apscheduler
+flask
+pytest
+
+# Optional (faster indicators if available)
+# TA-Lib is optional and recommended if you can install its native deps
+# ta-lib
+pandas_ta
