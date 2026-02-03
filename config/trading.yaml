@@ -1,0 +1,97 @@
+ensemble_prediction:
+  enabled: true
+  models:
+    - name: "xgboost"
+      enabled: true
+      n_estimators: 100
+      max_depth: 6
+      learning_rate: 0.1
+    - name: "lightgbm"
+      enabled: true
+      n_estimators: 100
+      num_leaves: 31
+      learning_rate: 0.1
+    - name: "catboost"
+      enabled: true
+      iterations: 100
+      learning_rate: 0.1
+  meta_learner: "xgboost"
+  use_regime_detection: true
+  confidence_threshold: 0.6
+  cache_predictions: true
+
+regime_detection:
+  enabled: true
+  lookback_period: 252  # 1 year of trading days
+  min_regime_length: 20
+  transition_threshold: 0.3
+
+options_trading:
+  enabled: true
+  capital_allocation_pct: 0.1
+  risk_per_trade_pct: 0.02
+  max_positions: 10
+  use_black_scholes: true
+  greeks_monitoring:
+    - delta
+    - gamma
+    - vega
+    - theta
+    - rho
+  strategy_builders:
+    - call_spread
+    - put_spread
+    - straddle
+    - iron_condor
+    - butterfly
+
+microstructure_analysis:
+  enabled: true
+  min_liquidity_score: 0.7
+  spread_analysis_enabled: true
+  volume_imbalance_threshold: 0.3
+  momentum_lookback: 20
+  market_impact_model: "linear"
+
+backtesting:
+  enabled: true
+  commission_pct: 0.001
+  slippage_pct: 0.0005
+  initial_capital: 100000.0
+  benchmark_symbol: "SPY"
+  performance_metrics:
+    - total_return
+    - annual_return
+    - sharpe_ratio
+    - max_drawdown
+    - calmar_ratio
+    - sortino_ratio
+  rebalance_frequency: "monthly"  # daily, weekly, monthly, quarterly
+
+data:
+  source: "yfinance"  # or other data source
+  cache_enabled: true
+  cache_ttl_hours: 24
+  symbols:
+    - AAPL
+    - MSFT
+    - GOOGL
+    - AMZN
+    - TSLA
+
+risk_management:
+  max_position_size_pct: 0.05
+  stop_loss_pct: 0.02
+  take_profit_pct: 0.05
+  max_daily_loss_pct: 0.1
+  sector_exposure_limits:
+    technology: 0.3
+    healthcare: 0.2
+    finance: 0.2
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "./logs/trading.log"
+  max_file_size_mb: 100
+  backup_count: 5
